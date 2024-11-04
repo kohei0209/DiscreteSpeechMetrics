@@ -59,6 +59,20 @@ def test_speechbertscore(sr=16000, use_gpu=True):
 
     print(f"SpeechBERTScore: {precision}")
 
+def test_speechbertscore_mhubert147(sr=16000, use_gpu=True):
+    # Generate or load test waveforms
+    reference_wav = generate_test_waveform(10000)  # Adjust length as needed
+    generated_wav = generate_test_waveform(10000)  # Same length as reference_wav
+
+    # Call the function
+    metrics = SpeechBERTScore(sr=sr, use_gpu=use_gpu, model_type="mhubert-147", layer=8)
+    precision, _, _ = metrics.score(reference_wav, generated_wav)
+
+    # Assert expected behavior
+    # This is a placeholder assertion. You should replace it with relevant checks.
+    assert isinstance(precision, float), "The score should be a float."
+
+    print(f"MHuBERT-SpeechBERTScore: {precision}")
 
 def test_speechbleu(sr=16000, use_gpu=True, remove_repetition=False):
     # Generate or load test waveforms
@@ -111,6 +125,7 @@ if __name__ == "__main__":
     test_logf0rmse()
     for test_case in [(16000, True), (16000, False), (24000, True), (24000, False)]:
         print("Testing with sr={}, use_gpu={}".format(*test_case))
+        test_speechbertscore_mhubert147(*test_case)
         test_speechbertscore(*test_case)
         test_utmos(*test_case)
     

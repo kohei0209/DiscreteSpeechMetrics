@@ -4,7 +4,7 @@
 import logging
 import torchaudio
 import torch
-from transformers import HubertModel, Wav2Vec2Model, WavLMModel
+from transformers import HubertModel, Wav2Vec2Model, WavLMModel, AutoModel
 
 # In PyTorch 2+, a warning for checkpoint mismatch is raised.
 # But it should be a false alarm according to the following issue.
@@ -59,6 +59,10 @@ class SpeechBERTScore:
             self.model = WavLMModel.from_pretrained("microsoft/wavlm-base-plus")
         elif model_type == "wavlm-large":
             self.model = WavLMModel.from_pretrained("microsoft/wavlm-large")
+        elif model_type == "mhubert-147":
+            # some warnings may appear depending on the environment but should be fine given the discussion below
+            # https://huggingface.co/utter-project/mHuBERT-147/discussions/7
+            self.model = AutoModel.from_pretrained('utter-project/mHuBERT-147')
         else:
             raise ValueError(f"Not found the setting for {model_type}.")
         self.model.eval()
