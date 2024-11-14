@@ -10,7 +10,6 @@ setup(
         'pyworld>=0.3.0',
         'fastdtw>=0.3.4',
         'scipy>=1.7.1',
-        'pypesq>=1.2.4',
         'librosa>=0.8.1',
         'transformers>=4.36.2',
         'torch>=1.10.1',       # https://github.com/huggingface/transformers/issues/26796
